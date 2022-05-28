@@ -1,8 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
-// const validator = require('validator')
 
-const channelSchma = new Schema({
+const channelSchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -17,17 +16,5 @@ const channelSchma = new Schema({
     }
 })
 
-const ChannelModel = mongoose.model('Channels', channelSchma)
+const ChannelModel = mongoose.model('Channels', channelSchema)
 module.exports = ChannelModel
-
-
-// email: {
-    //     type: String,
-    //     trim: true,
-    //     validate: {
-    //         validator: (v) => {
-    //             return validator.isEmail(v)
-    //         },
-    //         message: `{VALUE} validation failed`
-    //     }
-    // }

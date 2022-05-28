@@ -1,9 +1,7 @@
-const express = require('express')
-const router = express.Router()
 const Channels = require('../models/ChannelModel')
 
-// Channel Post
-router.post('/', (req, res, next) => {
+// Channel Post Controller
+const postChannelController = (req, res, next) => {
     const channelValues = new Channels({
         name: req.body.name,
         frequency: req.body.frequency
@@ -20,10 +18,11 @@ router.post('/', (req, res, next) => {
                 error: err
             })
         })
-})
+}
 
-// All Channel Get 
-router.get('/', (req, res, next) => {
+
+// All Channel Get Controller
+const getAllChannelController = (req, res, next) => {
     Channels.find()
         .then(channels => {
             res.status(201).json(channels)
@@ -35,11 +34,12 @@ router.get('/', (req, res, next) => {
                 error: err
             })
         })
-})
+}
 
-// Single Channel Get 
-router.get('/:id', (req, res, next) => {
+// Single Channel Get Controller
+const getSingleChannelCntroller = (req, res, next) => {
     const id = req.params.id
+
     Channels.findById({ _id: id })
         .then(channel => {
             res.status(201).json(channel)
@@ -51,11 +51,13 @@ router.get('/:id', (req, res, next) => {
                 error: err
             })
         })
-})
+}
 
-// Delete Channel  
-router.delete('/:id', (req, res, next) => {
+
+// Delete Channel
+const deleteChannelController = (req, res, next) => {
     const id = req.params.id
+
     Channels.deleteOne({ _id: id })
         .then(result => {
             res.json("Station deleted. Reload App")
@@ -67,15 +69,14 @@ router.delete('/:id', (req, res, next) => {
                 error: err
             })
         });
-})
+}
 
-// Update Channel
-router.patch('/:id', (req, res, next) => {
+// Update Channel Controller
+const updateChannelController = (req, res, next) => {
     const id = req.params.id
     const name = req.body.name
     const frequency = req.body.frequency
 
-    console.log(name, frequency);
     Channels.updateOne({ _id: id },
         { name: name, frequency: frequency })
         .then(result => {
@@ -84,6 +85,13 @@ router.patch('/:id', (req, res, next) => {
         .catch(err => {
             res.json("Same Channel Found Or Error")
         })
-})
+}
 
-module.exports = router
+
+module.exports = {
+    postChannelController,
+    getAllChannelController,
+    getSingleChannelCntroller,
+    deleteChannelController,
+    updateChannelController
+}

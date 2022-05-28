@@ -28,16 +28,16 @@
 //     app.post('/registration', (req, res) => {
 //         const formData = req.body
 //         // Store password hash in your DB.
-//         bcrypt.hash(formData.password, saltRounds, function (err, hash) {
-//             const userData = {
-//                 email: formData.email,
-//                 password: hash
-//             }
-//             registrationCollection.insertOne(userData)
-//                 .then(result => {
-//                     res.json('Succesfully Registration')
-//                 })
-//         });
+// bcrypt.hash(formData.password, saltRounds, function (err, hash) {
+//     const userData = {
+//         email: formData.email,
+//         password: hash
+//     }
+//     registrationCollection.insertOne(userData)
+//         .then(result => {
+//             res.json('Succesfully Registration')
+//         })
+// });
 //     })
 
 //     //GET USER INFO FOR LOGIN
@@ -48,20 +48,20 @@
 //             .toArray((err, documents) => {
 //                 if (documents) {
 //                     // Load hash from your password DB.
-//                     bcrypt.compare(password, documents[0].password, function (err, result) {
-//                         if (err) {
-//                             res.json("Error In Occoured")
-//                         }
-//                         else if (result) {
-//                             //Login Succesfully
-//                             let token = jwt.sign({ email: documents[0], email, id: documents[0]._id }, 'SECRET', { expiresIn: '2h' });
-//                             // documents[0]
-//                             res.send(token)
-//                         }
-//                         else {
-//                             res.json("Login Failed")
-//                         }
-//                     });
+// bcrypt.compare(password, documents[0].password, function (err, result) {
+//     if (err) {
+//         res.json("Error In Occoured")
+//     }
+//     else if (result) {
+//         //Login Succesfully
+//         let token = jwt.sign({ email: documents[0], email, id: documents[0]._id }, 'SECRET', { expiresIn: '2h' });
+//         // documents[0]
+//         res.send(token)
+//     }
+//     else {
+//         res.json("Login Failed")
+//     }
+// });
 //                 }
 //             })
 //     })
@@ -149,7 +149,8 @@ const app = express()
 require('dotenv').config()
 
 // Routes files
-const channelRoute = require('./routes/channel')
+const channelRoute = require('./routes/channelRoute')
+const registrationRoute = require('./routes/userRegistrationRoute')
 
 // DB Connect
 const uri = `mongodb+srv://${process.env.PROJECT_USERNAME}:${process.env.PROJECT_PASSWORD}@cluster0.ensig.mongodb.net/${process.env.PROJECT_DATABASENAME}?retryWrites=true&w=majority`;
@@ -170,6 +171,7 @@ app.use(morgan('dev'))
 
 
 app.use('/channel', channelRoute)
+app.use('/auth', registrationRoute)
 
 
 app.get('/', (req, res) => {

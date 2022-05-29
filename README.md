@@ -3,5 +3,6 @@
 ## Connect to Radio Stations
 
 - Create CRUD operation
+- Signup and Signin, logout authentication by jwt
 
-[Create React App]().
+[front end code github](https://github.com/RahulGhosh305/turtly-venture-task-api-server-ui-radio).

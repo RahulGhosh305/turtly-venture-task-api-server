@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userRegistrationController = require('../controller/registrationController')
-const authentication = require('../middleware/authenticate')
+// const authentication = require('../middleware/authenticate')
 
 // Registration User
 router.post('/register', userRegistrationController.userRegistration)
@@ -10,6 +10,6 @@ router.post('/register', userRegistrationController.userRegistration)
 router.post('/login', userRegistrationController.userLogin)
 
 // All Users
-router.get('/users', authentication, userRegistrationController.getAllUsers)
+router.get('/users', userRegistrationController.getAllUsers)
 
 module.exports = router

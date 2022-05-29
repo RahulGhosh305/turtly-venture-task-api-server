@@ -6,6 +6,7 @@ const saltRounds = 10;
 // Registration Controller
 const userRegistration = (req, res, next) => {
     const password = req.body.password
+    const email = req.body.email
     // console.log("Server Register Enter")
     bcrypt.hash(password, saltRounds, function (err, hash) {
         if (err) {
@@ -21,6 +22,13 @@ const userRegistration = (req, res, next) => {
 
         userRegsiterData.save()
             .then(result => {
+                // // ---------------------------
+                // let token = jwt.sign({ email: email }, `${process.env.PRIVATE_JWT_KEY}`, { expiresIn: '2h' });
+                // res.send({
+                //     message: "User Created Succesfully",
+                //     token
+                // })
+                // // ----------------------------
                 res.status(201).json("User Created Succesfully")
             })
             .catch(error => {
